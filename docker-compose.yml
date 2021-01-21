@@ -1,0 +1,23 @@
+version: "3"
+services:
+  composer:
+    build:
+      context: ./composer
+      dockerfile: Dockerfile
+    volumes:
+      - ~/Documents/Composer:/Bots
+      - ./runtime:/runtime
+      - ./.appdata:/appdata
+      - ./extensions/localPublish/hostedBots:/app/extensions/localPublish/hostedBots
+    environment:
+      PORT: 3000
+    network_mode: "host"
+  emulator:
+    build:
+      context: ./emulator
+      dockerfile: Dockerfile      
+    environment: 
+      DISPLAY: $DISPLAY
+    volumes: 
+      - $HOME/.Xauthority:/root/.Xauthority
+    network_mode: "host"
